@@ -1,8 +1,6 @@
 # Investigating Orthogroups
 
-In this sample dataset, we will download five Atadenovirus whole-genome sequences, select the protein FASTA, and identify orthogroups (orthologous genes) to make gene trees for each identified ortholog.
-
-I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
+In this sample dataset, we will download five Atadenovirus whole-genome sequences, select the protein FASTA, and identify orthogroups (orthologous genes) to make gene trees for each identified ortholog. I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
 
 ```
 curl -OJX GET [link]
@@ -20,7 +18,67 @@ curl -OJX GET [link]
 
 The workflow goes that once you have downloaded each file, you will want to unzip it, go into the data folder, and look for the file that says "protein.faa". You will want to rename that file to the name of the species (if you have forgotten the species, you can "head" the file before renaming it).
 
-## Since downloading the FASTA files, unzipping them, and all that are a little bit annoying, I have provided them in this folder for your convenience in the "data" folder.
+### Since downloading the FASTA files, unzipping them, and all that are a little bit annoying, I have provided them in this folder for your convenience in the "data" folder.
 
 
-The next thing you will need is you will need the OrthoFinder.yml file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel.
+# Setup for OrthoFinder
+The next thing you will need is you will need the OrthoFinder.yml file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel. You can put it in the same folder as the FASTA files.
+
+```
+conda env create -f orthofinder.yml
+conda activate orthofinder # make sure that the environment installed properly
+```
+
+Once the OrthoFinder environment has been verified to work correctly, we can make a script that actually runs the program. Feel free to copy the script below (change the file paths as needed).
+
+
+```
+#!/bin/bash
+#SBATCH --partition=cmain                    # which partition to run the job, options are in the Amarel guide
+#SBATCH --exclude=gpuc001,gpuc002               # exclude CCIB GPUs
+#SBATCH --job-name=orthofinder                        # job name for listing in queue
+#SBATCH --mem=5G                               # memory to allocate in Mb
+#SBATCH -n 20                                   # number of cores to use
+#SBATCH -N 1                                    # number of nodes the cores should be on, 1 means all cores on same node
+#SBATCH --time=1:00:00                       # maximum run time days-hours:minutes:seconds
+#SBATCH --requeue                                # restart and paused or superseeded jobs
+
+echo "Load conda needed for orthofinder"
+
+module purge
+eval "$(conda shell.bash hook)"
+conda activate orthofinder
+
+cd /projects/f_geneva_1/chfal/test_c4l/
+
+echo "Create variables for Orthofinder"
+
+ulimit -n 2400
+
+orthofinder -f /projects/f_geneva_1/chfal/test_c4l/ -M msa                  # Run full OrthoFinder analysis on FASTA format proteomes in specfied directory
+
+# orthofinder [options] -f <dir1> -b <dir2>     # Add new species in to a previous run and run new analysis
+
+```
+
+This job takes about 30 seconds to run. While it is running, go back to your main directory and make a new folder for the next program we are going to use, IQTREE.
+
+```
+mkdir iqtree
+```
+
+OrthoFinder then will make a lot of files (!) in the same directory you sent the run off at.
+
+
+OrthoFinder makes a list of single copy orthologue sequences, which it associates with (from what I can tell) random, sequential numbers. Therefore, we need to take the list of single-copy orthologue sequences, and select those associated named gene trees from the gene trees file. This code does this, but you have to move to the MultipleSequenceAlignment folder and run it there. SO:
+
+```
+cd OrthoFinder/YOUR_DATE_HERE/MultipleSequenceAlignments
+```
+
+When you are in that folder, you will see a list of orthogroups that OrthoFinder has identified.
+```
+cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} echo cp {}.fa /projects/f_geneva_1/chfal/test_c4l/iqtree
+
+```
+
