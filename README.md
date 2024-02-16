@@ -9,6 +9,8 @@ We will do that in three computational steps plus a fourth, local visualization 
 4) FigTree (visualizes trees).
 
 
+## Downloading Files
+
 I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
 
 ```
@@ -30,7 +32,10 @@ The workflow goes that once you have downloaded each file, you will want to unzi
 ### Since downloading the FASTA files, unzipping them, and all that are a little bit annoying, I have provided them in this folder for your convenience in the "data" folder.
 
 
-# Setup for OrthoFinder
+## OrthoFinder
+
+### Setting Up for OrthoFinder
+
 The next thing you will need is you will need the OrthoFinder.yml file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel. You can put it in the same folder as the FASTA files.
 
 ```
@@ -39,6 +44,8 @@ conda activate orthofinder # make sure that the environment installed properly
 ```
 
 Once the OrthoFinder environment has been verified to work correctly, we can make a script that actually runs the program. Feel free to copy the script below (change the file paths as needed).
+
+### Running OrthoFinder
 
 ```
 #!/bin/bash
@@ -89,4 +96,62 @@ When you are in that folder, you will see a list of orthogroups that OrthoFinder
 cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /projects/f_geneva_1/chfal/test_c4l/iqtree
 
 ```
+
+## IQTREE
+
+So now you should have all of your orthologous gene groups (orthologues) that were the output of OrthoFinder, one in each file. Now we are going to make gene trees from these files - one each! We will use the program IQTree.
+
+IQTree works by first running a simulation to select the best model of evolution for each orthogroup and then it creates a gene tree based on that model of evolution.
+
+
+The syntax for an IQTree command is: 
+
+```
+iqtree -m TEST -s ORTHOGROUP.fasta
+```
+
+The -m TEST flag means that we will be testing for the model of evolution.
+
+
+Seen below is an individual slurm script for IQTree. This slurm script should exist in the IQTREE folder.
+
+```
+#!/bin/bash
+#SBATCH --partition=cmain                    # which partition to run the job, options are in the Amarel guide
+#SBATCH --account=general
+#SBATCH --constraint=oarc
+#SBATCH --exclude=halc068               # exclude CCIB GPUs
+#SBATCH --job-name=iqtree                        # job name for listing in queue
+#SBATCH --mem=10G                               # memory to allocate in Mb
+#SBATCH -n 20                                   # number of cores to use
+#SBATCH -N 1                                    # number of nodes the cores should be on, 1 means all cores on same node
+#SBATCH --time=5:00:00                       # maximum run time days-hours:minutes:seconds
+#SBATCH --requeue                                # restart and paused or superseeded jobs
+
+echo "Load conda needed for orthofinder"
+
+module purge
+eval "$(conda shell.bash hook)"
+conda activate iqtree
+
+iqtree -m TEST -s ${1}
+```
+
+However, there are 15 orthogroups so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel.
+
+```
+for FILE in /projects/f_geneva_1/chfal/test_c4l/iqtree/*.fasta; do
+       echo "$FILE"
+       #sbatch run_iqtree.sh ${FILE}
+       #sleep=.05
+done
+```
+
+Then you will want to go back out and make this an executable file using this command:
+
+```
+chmod 755 run_loop_iqtree.sh
+```
+
+The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which telsls you what analysis was run and what the best model of evolution was.
 
