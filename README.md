@@ -158,3 +158,17 @@ You can then run that loop through this command:
 
 The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was.
 
+
+
+## ASTRAL
+
+
+Astral is a Java-based program that is downloaded from a Zip file (link [here](https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip).
+
+To download this, make another new directory in Amarel.
+
+```
+mkdir astral
+cd astral
+https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip
+```
