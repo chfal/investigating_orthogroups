@@ -193,6 +193,12 @@ You can then run that loop through this command:
 
 The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was. It can be important to look at both files, especially if you are interested in what model of evolution you need to use.
 
+```
+cat *.treefile > out_file.tre
+
+mv out_file.tre ../astral
+```
+
 
 
 ## ASTRAL
