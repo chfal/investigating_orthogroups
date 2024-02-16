@@ -82,19 +82,16 @@ This job takes about 30 seconds to run. While it is running, go back to your mai
 mkdir iqtree
 ```
 
-OrthoFinder then will make a lot of files (!) in the same directory you sent the run off at.
-
-
-OrthoFinder makes a list of single copy orthologue sequences, which it associates with (from what I can tell) random, sequential numbers. Therefore, we need to take the list of single-copy orthologue sequences, and select those associated named gene trees from the gene trees file. This code does this, but you have to move to the MultipleSequenceAlignment folder and run it there. SO:
+OrthoFinder then will make a lot of files (!) in the same directory you sent the run off at. You actually don't need all the files. OrthoFinder makes a list of single copy orthologue sequences, which it associates with (from what I can tell) random but sequential numbers. Therefore, we need to take the list of single-copy orthologue sequences, and select those associated named gene trees from the gene trees file. This code does this, but you have to move to the MultipleSequenceAlignment folder and run it there. SO:
 
 ```
 cd OrthoFinder/YOUR_DATE_HERE/MultipleSequenceAlignments
 ```
 
-When you are in that folder, you will see a list of orthogroups that OrthoFinder has identified.
+When you are in that folder, you will see a list of orthogroups that OrthoFinder has identified. Here is where you will run the below command, again changing the file paths to yours.
+
 ```
 cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /projects/f_geneva_1/chfal/test_c4l/iqtree
-
 ```
 
 ## IQTREE
@@ -137,7 +134,7 @@ conda activate iqtree
 iqtree -m TEST -s ${1}
 ```
 
-However, there are 15 orthogroups so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel.
+However, there are 15 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel.
 
 ```
 for FILE in /projects/f_geneva_1/chfal/test_c4l/iqtree/*.fasta; do
@@ -151,6 +148,12 @@ Then you will want to go back out and make this an executable file using this co
 
 ```
 chmod 755 run_loop_iqtree.sh
+```
+
+You can then run that loop through this command:
+
+```
+./run_loop_iqtree.sh
 ```
 
 The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which telsls you what analysis was run and what the best model of evolution was.
