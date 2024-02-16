@@ -156,5 +156,5 @@ You can then run that loop through this command:
 ./run_loop_iqtree.sh
 ```
 
-The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which telsls you what analysis was run and what the best model of evolution was.
+The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was.
 
