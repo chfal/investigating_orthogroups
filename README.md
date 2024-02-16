@@ -25,7 +25,9 @@ We will do that in three computational steps plus a fourth, local visualization 
 
 ## Downloading Files
 
-I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
+### Since downloading the FASTA files, unzipping them, and all that are a little bit annoying, I have provided them in this folder for your convenience in the "data" folder.
+
+But if you don't want to do it that way you can do it the slow way. I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
 
 ```
 curl -OJX GET [link]
@@ -43,12 +45,9 @@ curl -OJX GET [link]
 
 [White Sturgeon Adv 1](https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_006400995.1/download?include_annotation_type=GENOME_FASTA,GENOME_GFF,RNA_FASTA,CDS_FASTA,PROT_FASTA,SEQUENCE_REPORT)
 
-WHITE STURGEON is our outgroup as it is an ichtadenovirus.
-
-
 The workflow goes that once you have downloaded each file, you will want to unzip it, go into the data folder, and look for the file that says "protein.faa". You will want to rename that file to the name of the species (if you have forgotten the species, you can "head" the file before renaming it).
 
-### Since downloading the FASTA files, unzipping them, and all that are a little bit annoying, I have provided them in this folder for your convenience in the "data" folder.
+WHITE STURGEON is our outgroup as it is an ichtadenovirus.
 
 
 ## OrthoFinder
@@ -138,7 +137,6 @@ source .bash_profile
 ```
 Then you can test it by simply typing `iqtree` in the command line and it should pop up.
 
-
 IQTree works by first running a simulation to select the best model of evolution for each orthogroup and then it creates a gene tree based on that model of evolution.
 
 The syntax for an IQTree command is: 
@@ -213,7 +211,6 @@ cat *.treefile > input_astral.tre
 
 mv input_astral.tre ../astral
 ```
-
 
 
 ## ASTRAL
