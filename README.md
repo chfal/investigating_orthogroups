@@ -1,6 +1,15 @@
-# Investigating Orthogroups
+# Investigating Orthogroups to Make Species and Gene Trees
 
-In this sample dataset, we will download five Atadenovirus whole-genome sequences, select the protein FASTA, and identify orthogroups (orthologous genes) to make gene trees for each identified ortholog. I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
+OBJECTIVE: In this sample dataset, we will download five Atadenovirus whole-genome sequences, select the protein FASTAs, and identify orthogroups, which are orthologous genes across the species. The purpose is to make gene trees for each identified ortholog. We will then reconcile all of those gene trees into a species tree. You can see why we might want to do such a thing [here - you can just read the abstract](https://www.cell.com/trends/ecology-evolution/fulltext/S0169-5347(01)02203-0). Basically, each gene may have a slightly different evolutionary history and thus a slightly different relationship. So it's important to reconcile all of the gene trees we make into one big species tree.
+
+We will do that in three computational steps plus a fourth, local visualization step.
+1) OrthoFinder (identifies orthologous genes)
+2) IQTREE (predicts each gene tree under a selected model of evolution)
+3) ASTRAL (reconciles each gene tree into a single species)
+4) FigTree (visualizes trees).
+
+
+I typically download the files to my computer and rename them there but if you would like to, you can download them directly by following the link, going to amarel, typing the below command.
 
 ```
 curl -OJX GET [link]
@@ -30,7 +39,6 @@ conda activate orthofinder # make sure that the environment installed properly
 ```
 
 Once the OrthoFinder environment has been verified to work correctly, we can make a script that actually runs the program. Feel free to copy the script below (change the file paths as needed).
-
 
 ```
 #!/bin/bash
@@ -78,7 +86,7 @@ cd OrthoFinder/YOUR_DATE_HERE/MultipleSequenceAlignments
 
 When you are in that folder, you will see a list of orthogroups that OrthoFinder has identified.
 ```
-cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} echo cp {}.fa /projects/f_geneva_1/chfal/test_c4l/iqtree
+cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /projects/f_geneva_1/chfal/test_c4l/iqtree
 
 ```
 
