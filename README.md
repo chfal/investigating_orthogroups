@@ -8,6 +8,21 @@ We will do that in three computational steps plus a fourth, local visualization 
 3) ASTRAL (reconciles each gene tree into a single species)
 4) FigTree (visualizes trees).
 
+### Directory explanations
+- `test_c4l/`
+  - this folder is kind of the main folder. we'll run orthofinder here from here and save all our sequences here.
+- `OrthoFinder/`
+  - OrthoFinder makes its own directory where it puts its results.
+  - `Feb_16_Results/ OR WHATEVER DATE IT IS WHEN YOU RUN IT`
+    - this contains a bunch of other folders. The imoprtant ones are
+         - `Orthogroups`
+         - `MultipleSequenceAlignments`
+  - `scripts`
+    - soft link scripts folder here as well
+    - `ln -s ../juicer/SLURM/scripts/ scripts`
+
+
+
 
 ## Downloading Files
 
@@ -96,10 +111,31 @@ cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {
 
 ## IQTREE
 
-So now you should have all of your orthologous gene groups (orthologues) that were the output of OrthoFinder, one in each file. Now we are going to make gene trees from these files - one each! We will use the program IQTree.
+So now you should have all of your orthologous gene groups (orthologues) that were the output of OrthoFinder, one in each file. Now we are going to make gene trees from these files - one each! We will use the program IQTree. We don't need to download IQTree since it is already downloaded and within the Geneva lab's shared applications. So, what we can do, is follow the instructions below to access shared modules.
+
+To use shared modules you will need to add these lines to your path.
+
+Edit your bash profile in your home directory
+```
+cd
+nano .bash_profile
+```
+In this file, there is a line labeled: `# User specific environment and startup programs`
+
+Paste these commands **underneath** that line
+```
+module use /projects/community/modulefiles
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/last/bin:/projects/f_geneva_1/.shared_apps/bin
+export PATH
+```
+Save and exit the file, then run this command
+```
+source .bash_profile
+```
+Then you can test it by simply typing `iqtree` in the command line and it should pop up.
+
 
 IQTree works by first running a simulation to select the best model of evolution for each orthogroup and then it creates a gene tree based on that model of evolution.
-
 
 The syntax for an IQTree command is: 
 
@@ -156,7 +192,7 @@ You can then run that loop through this command:
 ./run_loop_iqtree.sh
 ```
 
-The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was.
+The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was. It can be important to look at both files, especially if you are interested in what model of evolution you need to use.
 
 
 
