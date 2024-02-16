@@ -11,17 +11,16 @@ We will do that in three computational steps plus a fourth, local visualization 
 ### Directory explanations
 - `test_c4l/`
   - this folder is kind of the main folder. we'll run orthofinder here from here and save all our sequences here.
-- `OrthoFinder/`
-  - OrthoFinder makes its own directory where it puts its results.
-  - `Feb_16_Results/ OR WHATEVER DATE IT IS WHEN YOU RUN IT`
-    - this contains a bunch of other folders. The imoprtant ones are
-         - `Orthogroups`
-         - `MultipleSequenceAlignments`
-  - `scripts`
-    - soft link scripts folder here as well
-    - `ln -s ../juicer/SLURM/scripts/ scripts`
-
-
+  - `OrthoFinder/`
+    - OrthoFinder makes its own directory where it puts its results.
+    - `Feb_16_Results/ OR WHATEVER DATE IT IS WHEN YOU RUN IT`
+      - this contains a bunch of other folders. The imoprtant ones are
+           - `Orthogroups`
+           - `MultipleSequenceAlignments`
+  - `iqtree`
+    - Where we run IQTree analysis
+  - `ASTRAL`
+      - Where we download and run ASTRAL
 
 
 ## Downloading Files
