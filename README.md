@@ -174,7 +174,7 @@ conda activate iqtree
 iqtree -m TEST -s ${1}
 ```
 
-However, there are 15 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel.
+However, there are 10 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel.
 
 ```
 for FILE in /projects/f_geneva_1/chfal/test_c4l/iqtree/*.fasta; do
