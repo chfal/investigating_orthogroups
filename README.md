@@ -24,28 +24,21 @@ We will do that in three computational steps plus a fourth, local visualization 
   - `ASTRAL`
       - Where we download and run ASTRAL
 
+## Getting files
+
+Fasta files are located in the `investigating_orthogroups/data` folder. There is one for each species and they are each a protein FASTA downloaded off of Genbank. If you want to see the links directly, they are in the `links_to_files.md` document on this page.
+
 WHITE STURGEON is our outgroup as it is an ichtadenovirus.
 
-## OrthoFinder
 
-### Setting Up for OrthoFinder
+The first thing you will want to do is you will want to change the names of the FASTA file headers. You can do that with the script called `rename.sh` which is located in the data folder. The reason you need to do this is currently, all of the FASTA file headers are the name of that protein and an accession number. Orthofinder will think that those FASTA headers are literally different species and cause issues downstream.
 
-The next thing you will need is you will need the OrthoFinder.yml file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel. You can put it in the same folder as the FASTA files.
-
-```
-conda env create -f orthofinder.yml
-conda activate orthofinder # make sure that the environment installed properly
-```
-
-
-The next thing you will need to do is change the names of the FASTA file headers. You can do that with the script called rename.sh. The reason you need to do this is currently, all of the FASTA file headers are the name of that protein and an accession number. Orthofinder will think that those fasta headers are literally different species and cause issues downstream. You can head the FASTA before and after if you like to see the difference.
-
-The rename.sh script may not be an executable if you have directly cloned this repository.
+The rename.sh script may not be an executable if you have directly cloned this repository. So to make it executable you can run the commands below:
 
 ```
 cd investigating_orthogroups/data
-chmod 755 rename.sh
-./rename.sh
+chmod 755 rename.sh # this makes the script executable
+./rename.sh # this makes the script run
 ```
 
 The contents of the rename file are below: 
@@ -59,13 +52,24 @@ do
 done
 ```
 
-you will want to move the renamed fasta folders to their own file.
+You will want to move the renamed FASTA files back to the investigating_orthogroups directory. Do not move the original files.
 
 ```
 mv changed* ../
 ```
 
-Once the OrthoFinder environment has been verified to work correctly and the fasta files are renamed accordingly, we can make a script that actually runs the program. Feel free to copy the script below (change the file paths as needed).
+## OrthoFinder
+
+### Setting Up for OrthoFinder
+
+The next thing you will need is you will need the `orthofinder.yml` file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel. This file should be located in the investigating_orthogroups folder.
+
+```
+conda env create -f orthofinder.yml
+conda activate orthofinder # make sure that the environment installed properly
+```
+
+Once the OrthoFinder environment has been verified to work correctly and the fasta files are renamed accordingly, we can make a script that actually runs the program. This is the script below but it is also in the folder as `run_orthofinder.sh`. You may need to change the file paths. You will point this towards wherever you have put the changed FASTA files (ideally the `investigating_orthogroups` head directory).
 
 ### Running OrthoFinder
 
@@ -170,7 +174,7 @@ conda activate iqtree
 iqtree -m TEST -s ${1}
 ```
 
-However, there are 10 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel. This file is also in the IQTREE folder.
+However, there are 10 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called `run_loop_iqtree.sh` You will want to change the below information to be specific to your file paths on Amarel again. This file is also in the IQTREE folder.
 
 ```
 for FILE in /projects/f_geneva_1/chfal/investigating_orthogroups/iqtree/*.fasta; do
