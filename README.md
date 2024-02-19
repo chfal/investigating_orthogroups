@@ -61,6 +61,18 @@ conda env create -f orthofinder.yml
 conda activate orthofinder # make sure that the environment installed properly
 ```
 
+
+The next thing you will need to do is change the names of the FASTA file headers. You can do that with this command (just run it directly in the terminal). The reason you need to do this is currently, all of the FASTA file headers are the name of that protein and an accession number. Orthofinder will think that those fasta headers are literally different species and cause issues downstream. You can head the FASTA before and after if you like to see the difference.
+
+```
+for file in *.fasta;
+   do
+       sed -i "s/>.*/${file%%.*}/" "$file" ;
+done
+```
+
+
+
 Once the OrthoFinder environment has been verified to work correctly, we can make a script that actually runs the program. Feel free to copy the script below (change the file paths as needed).
 
 ### Running OrthoFinder
