@@ -9,8 +9,10 @@ We will do that in three computational steps plus a fourth, local visualization 
 4) FigTree (visualizes trees).
 
 ### Directory explanations
-- `test_c4l/`
-  - this folder is kind of the main folder. we'll run orthofinder here from here and save all our sequences here.
+- `investigating_orthogroups/`
+  - this folder is kind of the main folder. we'll run orthofinder here from here and save all our changed sequences here.
+  - `Data/`
+  - This is where the original starting data is, but you will change the fasta files and move them back to `investigating_orthogroups`
   - `OrthoFinder/`
     - OrthoFinder makes its own directory where it puts its results.
     - `Feb_16_Results/ OR WHATEVER DATE IT IS WHEN YOU RUN IT`
@@ -121,12 +123,6 @@ orthofinder -f /projects/f_geneva_1/chfal/test_c4l/ -M msa                  # Ru
 
 ```
 
-This job takes about 30 seconds to run. While it is running, go back to your main directory and make a new folder for the next program we are going to use, IQTREE.
-
-```
-mkdir iqtree
-```
-
 OrthoFinder then will make a lot of files (!) in the same directory you sent the run off at. You actually don't need all the files. OrthoFinder makes a list of single copy orthologue sequences, which it associates with (from what I can tell) random but sequential numbers. Therefore, we need to take the list of single-copy orthologue sequences, and select those associated named gene trees from the gene trees file. This code does this, but you have to move to the MultipleSequenceAlignment folder and run it there. SO:
 
 ```
@@ -136,7 +132,7 @@ cd OrthoFinder/YOUR_DATE_HERE/MultipleSequenceAlignments
 When you are in that folder, you will see a list of orthogroups that OrthoFinder has identified. Here is where you will run the below command, again changing the file paths to yours.
 
 ```
-cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /projects/f_geneva_1/chfal/test_c4l/iqtree
+cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /projects/f_geneva_1/chfal/investigating_orthogroups/iqtree
 ```
 
 ## IQTREE
@@ -175,7 +171,7 @@ iqtree -m TEST -s ORTHOGROUP.fasta
 The -m TEST flag means that we will be testing for the model of evolution.
 
 
-Seen below is an individual slurm script for IQTree. This slurm script should exist in the IQTREE folder.
+Seen below is an individual slurm script for IQTree. This slurm script exists in the IQTREE folder.
 
 ```
 #!/bin/bash
@@ -199,10 +195,10 @@ conda activate iqtree
 iqtree -m TEST -s ${1}
 ```
 
-However, there are 10 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel.
+However, there are 10 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called "run_loop_iqtree.sh". You will want to change the below information to be specific to your file paths on Amarel. This file is also in the IQTREE folder.
 
 ```
-for FILE in /projects/f_geneva_1/chfal/test_c4l/iqtree/*.fasta; do
+for FILE in /projects/f_geneva_1/chfal/investigating_orthogroups/iqtree/*.fasta; do
        echo "$FILE"
        #sbatch run_iqtree.sh ${FILE}
        #sleep=.05
@@ -221,10 +217,10 @@ You can then run that loop through this command:
 ./run_loop_iqtree.sh
 ```
 
-While that is running you can go back to the head directory and make a new directory for ASTRAL.
+While that is running you can go back to the head directory and go into the ASTRAL directory.
 
 ```
-mkdir astral
+cd astral
 ```
 
 
