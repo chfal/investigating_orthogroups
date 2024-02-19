@@ -111,13 +111,13 @@ module purge
 eval "$(conda shell.bash hook)"
 conda activate orthofinder
 
-cd /projects/f_geneva_1/chfal/test_c4l/investigating_orthogroups/data
+cd /projects/f_geneva_1/chfal/investigating_orthogroups/data
 
 echo "Create variables for Orthofinder"
 
 ulimit -n 2400
 
-orthofinder -f /projects/f_geneva_1/chfal/test_c4l/ -M msa                  # Run full OrthoFinder analysis on FASTA format proteomes in specfied directory
+orthofinder -f /projects/f_geneva_1/chfal/investigating_orthogroups/ -M msa                  # Run full OrthoFinder analysis on FASTA format proteomes in specfied directory
 
 # orthofinder [options] -f <dir1> -b <dir2>     # Add new species in to a previous run and run new analysis
 
