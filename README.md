@@ -106,6 +106,8 @@ OrthoFinder then will make a lot of files (!) in the same directory you sent the
 
 
 ```
+cd OrthoFinder/<YOUR_DATE_HERE>/MultipleSequenceAlignments
+
 cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa ../../../iqtree/
 
 ```
