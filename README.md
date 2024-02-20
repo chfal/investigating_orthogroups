@@ -28,7 +28,10 @@ We will do that in three computational steps plus a fourth, local visualization 
 
 Get this repository into your directory on Amarel by Git Cloning.
 
+```
 git clone https://github.com/chfal/investigating_orthogroups.git
+```
+
 
 Fasta files are located in the `investigating_orthogroups/data` folder. There is one for each species and they are each a protein FASTA downloaded off of Genbank. If you want to see the links directly, they are in the `links_to_files.md` document on this page.
 
