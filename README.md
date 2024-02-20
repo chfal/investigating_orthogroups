@@ -118,25 +118,13 @@ cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {
 
 So now you should have all of your orthologous gene groups (orthologues) that were the output of OrthoFinder, one in each file. Now we are going to make gene trees from these files - one each! We will use the program IQTree. We don't need to download IQTree since it is already downloaded and within the Geneva lab's shared applications. So, what we can do, is follow the instructions below to access shared modules.
 
-To use shared modules you will need to add these lines to your path.
+To use shared modules you will need to run these two lines.
 
-Edit your bash profile in your home directory
-```
-cd
-nano .bash_profile
-```
-In this file, there is a line labeled: `# User specific environment and startup programs`
-
-Paste these commands **underneath** that line
 ```
 module use /projects/community/modulefiles
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/last/bin:/projects/f_geneva_1/.shared_apps/bin
-export PATH
+PATH=$PATH:/projects/f_geneva_1/.shared_apps/bin
 ```
-Save and exit the file, then run this command
-```
-source .bash_profile
-```
+
 Then you can test it by simply typing `iqtree` in the command line and it should pop up.
 
 IQTree works by first running a simulation to select the best model of evolution for each orthogroup and then it creates a gene tree based on that model of evolution.
