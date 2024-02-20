@@ -62,7 +62,7 @@ mv changed* ../
 
 ### Setting Up for OrthoFinder
 
-The next thing you will need is you will need the `orthofinder.yml` file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel. This file should be located in the investigating_orthogroups folder.
+The next thing you will need is you will need the `orthofinder.yml` file. This is a CONDA environment file that will set up the OrthoFinder program in your list of conda environments on Amarel. This file should be located in the investigating_orthogroups folder. If you have never worked with CONDA on Amarel, please find directions [here](https://github.com/lizardroom/conda_on_amarel). 
 
 ```
 conda env create -f orthofinder.yml
@@ -201,7 +201,7 @@ mv input_astral.tre ../astral
 
 ## ASTRAL
 
-Astral is a Java-based program that is downloaded from a Zip file (link [here](https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip).
+Astral is a Java-based program that is downloaded from a Zip file (link [here](https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip).)
 
 To download this, make another new directory in Amarel.
 
@@ -226,4 +226,6 @@ This is the syntax for the Astral command. Since you are running it as an intera
 java -jar Astral/astral.5.7.8.jar -i input_astral.tre -o output_tree.tre 2> astral_run.log
 ```
 
-I NEED TO FIND THE R CODE I MADE
+## Visualizing your results
+
+We will visualize the tree using the program FigTree, which is a program you can download on your local machine. You can download this program [here](https://github.com/rambaut/figtree/releases). It may require also downloading the Java runtime environment.
