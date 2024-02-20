@@ -231,3 +231,12 @@ java -jar Astral/astral.5.7.8.jar -i input_astral.tre -o output_tree.tre 2> astr
 ## Visualizing your results
 
 We will visualize the tree using the program FigTree, which is a program you can download on your local machine. You can download this program [here](https://github.com/rambaut/figtree/releases). It may require also downloading the Java runtime environment.
+
+
+Next, you will want to download your output tree onto your local machine. It should be called `output_tree.tre`. The file is basically a phylogenetic tree in a specialized format called the Newick Format that is readable by most phylogenetic tree programs. You can read more about Newick format [here](https://en.wikipedia.org/wiki/Newick_format).
+
+1. Load the phylogenetic tree into Astral. Since it is a GUI you can just click `File>New` and navigate to where you have downloaded it.
+
+2. The next thing you will want to do is reroot the tree. You can click to reroot the tree by highlighting the branch that leads to the outgroup. Our outgroup is the White Sturgeon Adenovirus.
+
+3. You can then continue to play around with the options in FigTree to visualize your tree (font sizes, tip colors, etc.). However, the last thing you will do is save your tree, which you can do by clicking `File>Export PDF`.
