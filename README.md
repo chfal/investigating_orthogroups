@@ -248,3 +248,4 @@ Next, you will want to download your output tree onto your local machine. It sho
 
 3. You can then continue to play around with the options in FigTree to visualize your tree (font sizes, tip colors, etc.). However, the last thing you will do is save your tree, which you can do by clicking `File>Export PDF`.
 
+An example of what it should look like is in the main folder called `final_tree.pdf`.
