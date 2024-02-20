@@ -228,6 +228,13 @@ This is the syntax for the Astral command. Since you are running it as an intera
 java -jar Astral/astral.5.7.8.jar -i input_astral.tre -o output_tree.tre 2> astral_run.log
 ```
 
+
+Since we renamed the taxa already, we will rename them to the final names using the rename.sh script in the `astral` directory. This is optional but recommended.
+
+```
+./rename.sh
+```
+
 ## Visualizing your results
 
 We will visualize the tree using the program FigTree, which is a program you can download on your local machine. You can download this program [here](https://github.com/rambaut/figtree/releases). It may require also downloading the Java runtime environment.
