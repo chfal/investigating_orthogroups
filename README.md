@@ -90,28 +90,24 @@ module purge
 eval "$(conda shell.bash hook)"
 conda activate orthofinder
 
-cd /projects/f_geneva_1/chfal/investigating_orthogroups/data
-
 echo "Create variables for Orthofinder"
+
+cd investigating_oroups/
 
 ulimit -n 2400
 
-orthofinder -f /projects/f_geneva_1/chfal/investigating_orthogroups/ -M msa                  # Run full OrthoFinder analysis on FASTA format proteomes in specfied directory
+orthofinder -f investigating_orthogroups/ -M msa                  # Run full OrthoFinder analysis on FASTA format proteomes in specfied directory
 
 # orthofinder [options] -f <dir1> -b <dir2>     # Add new species in to a previous run and run new analysis
 
 ```
 
-OrthoFinder then will make a lot of files (!) in the same directory you sent the run off at. You actually don't need all the files. OrthoFinder makes a list of single copy orthologue sequences, which it associates with (from what I can tell) random but sequential numbers. Therefore, we need to take the list of single-copy orthologue sequences, and select those associated named gene trees from the gene trees file. This code does this, but you have to move to the MultipleSequenceAlignment folder and run it there. SO:
+OrthoFinder then will make a lot of files (!) in the same directory you sent the run off at. You actually don't need all the files. OrthoFinder makes a list of single copy orthologue sequences, which it associates with (from what I can tell) random but sequential numbers. Therefore, we need to take the list of single-copy orthologue sequences, and select those associated named gene trees from the gene trees file.
+
 
 ```
-cd OrthoFinder/YOUR_DATE_HERE/MultipleSequenceAlignments
-```
+cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /<YOUR_PATHS_HERE>/investigating_orthogroups/iqtree
 
-When you are in that folder, you will see a list of orthogroups that OrthoFinder has identified. Here is where you will run the below command, again changing the file paths to yours.
-
-```
-cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {}.fa /projects/f_geneva_1/chfal/investigating_orthogroups/iqtree
 ```
 
 ## IQTREE
@@ -132,7 +128,7 @@ IQTree works by first running a simulation to select the best model of evolution
 The syntax for an IQTree command is: 
 
 ```
-iqtree -m TEST -s ORTHOGROUP.fasta
+iqtree -m TEST -s <YOUR_ORTHOGROUP_FILE>.fasta
 ```
 
 The -m TEST flag means that we will be testing for the model of evolution.
@@ -165,7 +161,7 @@ iqtree -m TEST -s ${1}
 However, there are 10 orthogroups (at least in my run) so it is kind of annoying to submit all 15 different jobs. Here we will make a loop file, called `run_loop_iqtree.sh` You will want to change the below information to be specific to your file paths on Amarel again. This file is also in the IQTREE folder.
 
 ```
-for FILE in /projects/f_geneva_1/chfal/investigating_orthogroups/iqtree/*.fasta; do
+for FILE in <YOUR_FILE_PATH_HERE>/investigating_orthogroups/iqtree/*.fasta; do
        echo "$FILE"
        #sbatch run_iqtree.sh ${FILE}
        #sleep=.05
