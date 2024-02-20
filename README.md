@@ -92,7 +92,7 @@ conda activate orthofinder
 
 echo "Create variables for Orthofinder"
 
-cd investigating_oroups/
+cd ./investigating_orthogroups/
 
 ulimit -n 2400
 
