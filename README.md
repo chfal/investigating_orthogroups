@@ -244,6 +244,7 @@ Next, you will want to download your output tree onto your local machine. It sho
 
 1. Load the phylogenetic tree into Astral. Since it is a GUI you can just click `File>New` and navigate to where you have downloaded it.
 
-2. The next thing you will want to do is reroot the tree. You can click to reroot the tree by highlighting the branch that leads to the outgroup. Our outgroup is the White Sturgeon Adenovirus.
+2. The next thing you will want to do is reroot the tree. You can click to reroot the tree by highlighting the branch that leads to the outgroup and clicking `reroot`. Our outgroup is the White Sturgeon Adenovirus. You can also align the tip labels by checking the box, "Align Tip Labels."
 
 3. You can then continue to play around with the options in FigTree to visualize your tree (font sizes, tip colors, etc.). However, the last thing you will do is save your tree, which you can do by clicking `File>Export PDF`.
+
