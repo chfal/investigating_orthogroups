@@ -203,23 +203,19 @@ mv input_astral.tre ../astral
 
 ## ASTRAL
 
-Astral is a Java-based program that is downloaded from a Zip file (link [here](https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip).)
-
-To download this, make another new directory in Amarel.
+Astral is a Java-based program that is downloaded from a Zip file (link [here](https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip).) I have provided this file in the Astral directory for you.
 
 ```
 cd astral
-wget https://github.com/smirarab/ASTRAL/raw/master/Astral.5.7.8.zip
 unzip Astral.5.7.8.zip
 ```
 
-Then you can run Astral which I typically run as an interactive job. Here is the code for an interactive job.
+Then you can run Astral which I typically run as an interactive job. Here is the code for an interactive job. You will also want to load Java.
 
 ```
 srun -p p_ccib_1 --job-name "name" --cpus-per-task 1 --mem-per-cpu 10g --time 01:00:00 --pty bash
 
-module load java
-
+module load java 
 ```
 
 This is the syntax for the Astral command. Since you are running it as an interactive job it will just "freeze" for a few seconds while it runs on that screen and then you will get an output file tree.
