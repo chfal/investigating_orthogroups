@@ -232,6 +232,7 @@ java -jar Astral/astral.5.7.8.jar -i input_astral.tre -o output_tree.tre 2> astr
 Since we renamed the taxa already, we will rename them to the final names using the rename.sh script in the `astral` directory. This is optional but recommended.
 
 ```
+chmod 755 rename.sh
 ./rename.sh
 ```
 
