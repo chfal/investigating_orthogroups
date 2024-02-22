@@ -16,8 +16,6 @@ module purge
 eval "$(conda shell.bash hook)"
 conda activate orthofinder
 
-cd ./investigating_oroups/
-
 echo "Create variables for Orthofinder"
 
 ulimit -n 2400
