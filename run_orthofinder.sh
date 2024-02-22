@@ -7,8 +7,6 @@
 #SBATCH -N 1                                    # number of nodes the cores should be on, 1 means all cores on same node
 #SBATCH --time=5:00:00                       # maximum run time days-hours:minutes:seconds
 #SBATCH --requeue                                # restart and paused or superseeded jobs
-#SBATCH --mail-user=chf29@scarletmail.rutgers.edu           # email address to send status updates
-#SBATCH --mail-type=END                     # email for the following reasons
 
 echo "Load conda needed for orthofinder"
 
