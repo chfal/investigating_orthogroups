@@ -189,13 +189,6 @@ You can then run that loop through this command:
 ./run_loop_iqtree.sh
 ```
 
-While that is running you can go back to the head directory and go into the ASTRAL directory.
-
-```
-cd astral
-```
-
-
 The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was. It can be important to look at both files, especially if you are interested in what model of evolution you need to use.
 
 Tree files are the gene tree for that specific orthogroup in Newick format.
