@@ -121,16 +121,13 @@ cat ../Orthogroups/Orthogroups_SingleCopyOrthologues.txt | xargs -n 1 -I {} cp {
 
 ## IQTREE
 
-So now you should have all of your orthologous gene groups (orthologues) that were the output of OrthoFinder, one in each file. Now we are going to make gene trees from these files - one each! We will use the program IQTree. We don't need to download IQTree since it is already downloaded and within the Geneva lab's shared applications. So, what we can do, is follow the instructions below to access shared modules.
-
-To use shared modules you will need to run these two lines.
+So now you should have all of your orthologous gene groups (orthologues) that were the output of OrthoFinder, one in each file. Now we are going to make gene trees from these files - one each! We will use the program IQTree. To use IQTree we will need to make a conda environment. If you have never made a conda environment on Amarel, you can learn how to do so here: https://github.com/lizardroom/conda_on_amarel
 
 ```
-module use /projects/community/modulefiles
-PATH=$PATH:/projects/f_geneva_1/.shared_apps/bin
+conda create -n iqtree
+conda activate iqtree
+conda install -c bioconda iqtree
 ```
-
-Then you can test it by simply typing `iqtree` in the command line and it should pop up.
 
 IQTree works by first running a simulation to select the best model of evolution for each orthogroup and then it creates a gene tree based on that model of evolution.
 
