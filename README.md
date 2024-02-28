@@ -129,6 +129,16 @@ conda activate iqtree
 conda install -c bioconda iqtree
 ```
 
+You can test it by typing this:
+
+```
+conda activate iqtree
+iqtree
+```
+
+If you have installed it correctly the help page should pop up for IQTree.
+
+
 IQTree works by first running a simulation to select the best model of evolution for each orthogroup and then it creates a gene tree based on that model of evolution.
 
 The syntax for an IQTree command is: 
