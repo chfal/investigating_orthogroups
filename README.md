@@ -44,8 +44,7 @@ The rename.sh script may not be an executable if you have directly cloned this r
 
 ```
 cd investigating_orthogroups/data
-chmod 755 rename.sh # this makes the script executable
-./rename.sh # this makes the script run
+bash rename.sh
 ```
 
 The contents of the rename file are below: 
@@ -184,16 +183,10 @@ for FILE in <YOUR_FILE_PATH_HERE>/investigating_orthogroups/iqtree/*.fasta; do
 done
 ```
 
-Then you will want to go back out and make this an executable file using this command:
+You can run that loop through this command:
 
 ```
-chmod 755 run_loop_iqtree.sh
-```
-
-You can then run that loop through this command:
-
-```
-./run_loop_iqtree.sh
+bash run_loop_iqtree.sh
 ```
 
 The output of IQTREE creates many things. It creates a tree file, which is what you need for Astral, and a Log file, which tells you what analysis was run and what the best model of evolution was. It can be important to look at both files, especially if you are interested in what model of evolution you need to use.
@@ -243,10 +236,9 @@ chmod 755 rename.sh
 
 We will visualize the tree using the program FigTree, which is a program you can download on your local machine. You can download this program [here](https://github.com/rambaut/figtree/releases). It may require also downloading the Java runtime environment.
 
-
 Next, you will want to download your output tree onto your local machine. It should be called `output_tree.tre`. The file is basically a phylogenetic tree in a specialized format called the Newick Format that is readable by most phylogenetic tree programs. You can read more about Newick format [here](https://en.wikipedia.org/wiki/Newick_format).
 
-1. Load the phylogenetic tree into Astral. Since it is a GUI you can just click `File>New` and navigate to where you have downloaded it.
+1. Load the phylogenetic tree into FigTree. Since it is a GUI you can just click `File>Open` and navigate to where you have downloaded it.
 
 2. The next thing you will want to do is reroot the tree. You can click to reroot the tree by highlighting the branch that leads to the outgroup and clicking `reroot`. Our outgroup is the White Sturgeon Adenovirus. You can also align the tip labels by checking the box, "Align Tip Labels."
 
